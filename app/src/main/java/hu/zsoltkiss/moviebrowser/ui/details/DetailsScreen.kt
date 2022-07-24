@@ -23,13 +23,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hu.zsoltkiss.moviebrowser.R
-import hu.zsoltkiss.moviebrowser.data.api.RetrofitClient
 import hu.zsoltkiss.moviebrowser.data.model.MovieDetails
 import hu.zsoltkiss.moviebrowser.ui.movies.loadImage
 
 @Composable
 fun MovieDetails(
     details: MovieDetails? = null,
+    tmdbImageUrl: String,
     context: Context
 ) {
 
@@ -125,7 +125,7 @@ fun MovieDetails(
             details?.posterPath?.let {
                 Spacer(modifier = Modifier.height(20.dp))
 
-                val imageUrl = RetrofitClient.TMDB_IMAGEURL + it
+                val imageUrl = tmdbImageUrl + it
                 val bitmap = loadImage(
                     context = context,
                     imageUrl = imageUrl,

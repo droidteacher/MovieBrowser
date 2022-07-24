@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import dagger.hilt.android.AndroidEntryPoint
 import hu.zsoltkiss.moviebrowser.R
 import hu.zsoltkiss.moviebrowser.ui.common.MBAppBar
 import hu.zsoltkiss.moviebrowser.ui.common.MBSearchBar
@@ -27,14 +28,21 @@ import hu.zsoltkiss.moviebrowser.ui.theme.MovieBrowserTheme
 import hu.zsoltkiss.moviebrowser.ui.theme.noResults
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
+import javax.inject.Inject
+import javax.inject.Named
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val moviesViewModel: MoviesViewModelImpl by viewModels()
 
     private val disposables = CompositeDisposable()
 
-    // TODO DI, VM teszt, text styles
+    @Inject
+    @Named("imageUrl")
+    lateinit var tmdbImageUrl: String
+
+    // TODO VM teszt, text styles
 
     @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +92,7 @@ class MainActivity : ComponentActivity() {
                                         LazyColumn(
                                             modifier = Modifier.align(Alignment.Center)
                                         ) {
-                                            moviesList(movies = movies, context = baseContext, onCardSelect = moviesViewModel::movieSelected)
+                                            moviesList(movies = movies, context = baseContext, onCardSelect = moviesViewModel::movieSelected, tmdbImageUrl = tmdbImageUrl)
                                         }
                                     }
                                 }

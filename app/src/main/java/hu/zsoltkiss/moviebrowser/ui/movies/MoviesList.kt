@@ -39,13 +39,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import hu.zsoltkiss.moviebrowser.R
-import hu.zsoltkiss.moviebrowser.data.api.RetrofitClient
 import hu.zsoltkiss.moviebrowser.data.model.Movie
 import hu.zsoltkiss.moviebrowser.ui.theme.popularityIconTint
 
 fun LazyListScope.moviesList(
     movies: List<Movie>,
     context: Context,
+    tmdbImageUrl: String,
     onCardSelect: (String) -> Unit
 ) {
     items(movies) { movie ->
@@ -56,6 +56,7 @@ fun LazyListScope.moviesList(
             releaseDate = movie.releaseDate,
             popularity = movie.popularity,
             pathToImage = movie.posterPath,
+            tmdbImageUrl = tmdbImageUrl,
             context = context,
             onSelect = onCardSelect
         )
@@ -68,6 +69,7 @@ fun MovieCard(
     releaseDate: String?,
     popularity: Float?,
     pathToImage: String?,
+    tmdbImageUrl: String,
     context: Context,
     onSelect: (String) -> Unit
 ) {
@@ -103,7 +105,7 @@ fun MovieCard(
             }
 
             pathToImage?.let {
-                val imageUrl = RetrofitClient.TMDB_IMAGEURL + it
+                val imageUrl = tmdbImageUrl + it
 
                 val bitmap = loadImage(context = context, imageUrl = imageUrl, defaultImage = R.drawable.poster_placeholder).value
 

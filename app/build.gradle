@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -23,6 +25,8 @@ android {
         }
 
         buildConfigField('String', 'TMDB_API_KEY', keystoreProperties['TMDB_API_KEY'])
+        buildConfigField('String', 'TMDB_BASE_URL', '"https://api.themoviedb.org/3/"')
+        buildConfigField('String', 'TMDB_IMAGE_URL', '"https://image.tmdb.org/t/p/w500/"')
     }
 
     buildTypes {
@@ -95,5 +99,9 @@ dependencies {
     def glideVersion = "4.11.0"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
 }
