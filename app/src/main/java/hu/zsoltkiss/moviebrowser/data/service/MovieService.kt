@@ -1,6 +1,5 @@
 package hu.zsoltkiss.moviebrowser.data.service
 
-
 import hu.zsoltkiss.moviebrowser.data.model.Movie
 import hu.zsoltkiss.moviebrowser.data.model.MovieDetails
 import io.reactivex.rxjava3.core.Maybe

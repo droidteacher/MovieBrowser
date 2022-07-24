@@ -2,6 +2,7 @@ package hu.zsoltkiss.moviebrowser.ui.details
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,12 +26,16 @@ import androidx.compose.ui.unit.sp
 import hu.zsoltkiss.moviebrowser.R
 import hu.zsoltkiss.moviebrowser.data.model.MovieDetails
 import hu.zsoltkiss.moviebrowser.ui.movies.loadImage
+import hu.zsoltkiss.moviebrowser.ui.theme.detailsLabel
+import hu.zsoltkiss.moviebrowser.ui.theme.detailsValue
+import hu.zsoltkiss.moviebrowser.ui.theme.homepage
 
 @Composable
 fun MovieDetails(
     details: MovieDetails? = null,
     tmdbImageUrl: String,
-    context: Context
+    context: Context,
+    onHomepageClick: () -> Unit
 ) {
 
     Column(
@@ -62,11 +67,13 @@ fun MovieDetails(
             ) {
                 Text(
                     "Release date",
-                    modifier = Modifier.weight(0.5f)
+                    modifier = Modifier.weight(0.5f),
+                    style = detailsLabel
                 )
                 Text(
-                    details?.releaseDate ?: "",
-                    modifier = Modifier.weight(0.5f)
+                    details.releaseDate ?: "",
+                    modifier = Modifier.weight(0.5f),
+                    style = detailsValue
                 )
             }
 
@@ -77,11 +84,13 @@ fun MovieDetails(
             ) {
                 Text(
                     "Budget",
-                    modifier = Modifier.weight(0.5f)
+                    modifier = Modifier.weight(0.5f),
+                    style = detailsLabel
                 )
                 Text(
-                    details?.budget?.toString() ?: "",
-                    modifier = Modifier.weight(0.5f)
+                    details.budget.toString(),
+                    modifier = Modifier.weight(0.5f),
+                    style = detailsValue
                 )
             }
 
@@ -92,11 +101,13 @@ fun MovieDetails(
             ) {
                 Text(
                     "Revenue",
-                    modifier = Modifier.weight(0.5f)
+                    modifier = Modifier.weight(0.5f),
+                    style = detailsLabel
                 )
                 Text(
-                    details?.revenue?.toString() ?: "",
-                    modifier = Modifier.weight(0.5f)
+                    details.revenue.toString(),
+                    modifier = Modifier.weight(0.5f),
+                    style = detailsValue
                 )
             }
 
@@ -107,22 +118,24 @@ fun MovieDetails(
             ) {
                 Text(
                     "Genres",
-                    modifier = Modifier.weight(0.5f)
+                    modifier = Modifier.weight(0.5f),
+                    style = detailsLabel
                 )
                 Text(
-                    details?.listOfGenres ?: "",
-                    modifier = Modifier.weight(0.5f)
+                    details.listOfGenres,
+                    modifier = Modifier.weight(0.5f),
+                    style = detailsValue
                 )
             }
 
-            details?.overview?.let {
+            details.overview?.let {
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = it
                 )
             }
 
-            details?.posterPath?.let {
+            details.posterPath?.let {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 val imageUrl = tmdbImageUrl + it
@@ -145,7 +158,7 @@ fun MovieDetails(
 
             }
 
-            if (!details?.homepage.isNullOrEmpty()) {
+            if (!details.homepage.isNullOrEmpty()) {
                 Spacer(modifier = Modifier.height(5.dp))
 
 
@@ -154,6 +167,7 @@ fun MovieDetails(
                 ) {
                     Text(
                         "Homepage:",
+                        style = detailsLabel
                     )
                 }
 
@@ -161,7 +175,9 @@ fun MovieDetails(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = details?.homepage!!
+                        text = details.homepage,
+                        style = homepage,
+                        modifier = Modifier.clickable { onHomepageClick() }
                     )
                 }
             }

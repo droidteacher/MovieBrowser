@@ -1,6 +1,5 @@
 package hu.zsoltkiss.moviebrowser.ui.movies
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -13,7 +12,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.math.exp
 
 @HiltViewModel
 class MoviesViewModelImpl @Inject constructor(
@@ -49,7 +47,6 @@ class MoviesViewModelImpl @Inject constructor(
     }
 
     override fun userInputChanged(userInput: String) {
-        Log.d("KZs", "userInputChanged: $userInput")
         searchExpressionState.value = userInput
     }
 

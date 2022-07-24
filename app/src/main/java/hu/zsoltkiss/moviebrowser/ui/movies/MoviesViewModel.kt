@@ -14,5 +14,4 @@ interface MoviesViewModel {
     fun movieSelected(title: String)
     fun userInputChanged(userInput: String)
     fun search(expr: String)
-
 }

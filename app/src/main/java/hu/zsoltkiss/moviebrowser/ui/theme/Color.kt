@@ -23,3 +23,12 @@ val Colors.popularityIconTint
 val Colors.searchBarBackground
     @Composable
     get() = colorResource(R.color.searchBarBackground)
+
+val Colors.labelTextColor
+    @Composable
+    get() = colorResource(R.color.detailScreenLabelText)
+
+val Colors.homepageTextColor
+    @Composable
+    get() = colorResource(R.color.detailScreenHomepageText)
+

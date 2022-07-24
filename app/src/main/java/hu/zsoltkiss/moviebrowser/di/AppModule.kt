@@ -58,9 +58,4 @@ class AppModule {
             .client(okHttpClient)
             .build()
 
-
-
-
-
-
 }

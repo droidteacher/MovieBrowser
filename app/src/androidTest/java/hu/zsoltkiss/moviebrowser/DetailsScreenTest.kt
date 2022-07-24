@@ -36,7 +36,9 @@ class DetailsScreenTest {
         testRule.setContent {
             MovieDetails(
                 details = movie,
-                context = appContext
+                context = appContext,
+                tmdbImageUrl = "fake",
+                onHomepageClick = { }
             )
         }
 

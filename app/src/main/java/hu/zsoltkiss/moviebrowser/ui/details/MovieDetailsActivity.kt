@@ -1,5 +1,6 @@
 package hu.zsoltkiss.moviebrowser.ui.details
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import hu.zsoltkiss.moviebrowser.R
 import hu.zsoltkiss.moviebrowser.ui.common.MBAppBar
 import hu.zsoltkiss.moviebrowser.ui.theme.MovieBrowserTheme
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -24,6 +27,8 @@ import javax.inject.Named
 class MovieDetailsActivity : ComponentActivity() {
 
     private val movieDetailsViewModel: MovieDetailsViewModelImpl by viewModels()
+
+    private val disposables = CompositeDisposable()
 
     private var movieId: Int? = null
 
@@ -36,6 +41,13 @@ class MovieDetailsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         movieId = intent.extras?.getInt(extraKeyMovieId)
+
+        movieDetailsViewModel.homepageUri.subscribe { uri ->
+            startActivity(Intent(Intent.ACTION_VIEW).also {
+                it.data = uri
+            })
+        }
+            .addTo(disposables)
 
         val movieDetails by movieDetailsViewModel.movieDetailsState
 
@@ -55,7 +67,12 @@ class MovieDetailsActivity : ComponentActivity() {
                         )
                     },
                     content = {
-                        MovieDetails(details = movieDetails, context = baseContext, tmdbImageUrl = tmdbImageUrl)
+                        MovieDetails(
+                            details = movieDetails,
+                            context = baseContext,
+                            tmdbImageUrl = tmdbImageUrl,
+                            onHomepageClick = movieDetailsViewModel::requestHomepageNavigation
+                        )
                     }
                 )
             }
@@ -68,6 +85,11 @@ class MovieDetailsActivity : ComponentActivity() {
         movieId?.let {
             movieDetailsViewModel.fetchDetails(it)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.dispose()
     }
 
     companion object {

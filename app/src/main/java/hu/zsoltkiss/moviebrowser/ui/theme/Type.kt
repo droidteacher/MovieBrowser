@@ -3,6 +3,7 @@ package hu.zsoltkiss.moviebrowser.ui.theme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -62,6 +63,39 @@ val noResults: TextStyle
             fontWeight = FontWeight.Normal,
             fontSize = TextSize.Medium,
             color = MaterialTheme.colors.onBackground
+        )
+    }
+
+val detailsLabel: TextStyle
+    @Composable
+    get() {
+        return TextStyle(
+            fontFamily = fonts,
+            fontWeight = FontWeight.Normal,
+            fontSize = TextSize.Medium,
+            color = MaterialTheme.colors.labelTextColor
+        )
+    }
+
+val detailsValue: TextStyle
+    @Composable
+    get() {
+        return TextStyle(
+            fontFamily = fonts,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = TextSize.Medium,
+            color = Color.Black
+        )
+    }
+
+val homepage: TextStyle
+    @Composable
+    get() {
+        return TextStyle(
+            fontFamily = fonts,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = TextSize.Small,
+            color = MaterialTheme.colors.homepageTextColor
         )
     }
 

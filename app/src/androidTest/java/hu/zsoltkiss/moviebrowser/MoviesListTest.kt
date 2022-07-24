@@ -46,7 +46,8 @@ class MoviesListTest {
                 moviesList(
                     movies = movies,
                     context = appContext,
-                    onCardSelect = {}
+                    onCardSelect = {},
+                    tmdbImageUrl = "fake"
                 )
             }
         }

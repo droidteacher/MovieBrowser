@@ -16,32 +16,19 @@ class MovieServiceImpl @Inject constructor(
     lateinit var apiKey: String
 
     override fun getPopularMovies(): Maybe<List<Movie>> {
-
         return moviesApi.getPopularMovies(apiKey).map { it.results ?: emptyList() }
-
-//        return RetrofitClient.getPopularMovies().map { it.results ?: emptyList() }
     }
 
     override fun getSimpsonsMovies(): Maybe<List<Movie>> {
-
         return moviesApi.searchMovie(apiKey, "simpsons").map { it.results ?: emptyList() }
-
-//        return RetrofitClient.getSimpsonsMovies().map { it.results ?: emptyList() }
     }
 
     override fun searchFor(what: String): Maybe<List<Movie>> {
-
         return moviesApi.searchMovie(apiKey, what).map { it.results ?: emptyList() }
-
-
-//        return RetrofitClient.searchMovies(what).map { it.results ?: emptyList() }
     }
 
     override fun getMovieDetails(id: Int): Maybe<MovieDetails> {
-
         return moviesApi.getMovieDetails(id, apiKey)
-
-//        return RetrofitClient.getDetails(id)
     }
 
 

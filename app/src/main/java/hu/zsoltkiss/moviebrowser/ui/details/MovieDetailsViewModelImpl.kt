@@ -1,6 +1,6 @@
 package hu.zsoltkiss.moviebrowser.ui.details
 
-import android.util.Log
+import android.net.Uri
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -10,6 +10,7 @@ import hu.zsoltkiss.moviebrowser.data.service.MovieService
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
@@ -30,12 +31,9 @@ class MovieDetailsViewModelImpl @Inject constructor(
     lateinit var url2: String
 
     override val movieDetailsState: MutableState<MovieDetails?> = mutableStateOf(null)
+    override val homepageUri: BehaviorSubject<Uri> = BehaviorSubject.create()
 
     override fun fetchDetails(id: Int) {
-
-        Log.d("KZs", "url1: $url1")
-        Log.d("KZs", "url2: $url2")
-
         service.getMovieDetails(id)
             .subscribeOn(Schedulers.io())
             .delay(1, TimeUnit.SECONDS)
@@ -48,6 +46,12 @@ class MovieDetailsViewModelImpl @Inject constructor(
                 }
             )
             .addTo(disposables)
+    }
+
+    override fun requestHomepageNavigation() {
+        movieDetailsState.value?.homepage?.let {
+            homepageUri.onNext(Uri.parse(it))
+        }
     }
 
     override fun onCleared() {

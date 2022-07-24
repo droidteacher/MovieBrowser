@@ -42,8 +42,6 @@ class MainActivity : ComponentActivity() {
     @Named("imageUrl")
     lateinit var tmdbImageUrl: String
 
-    // TODO VM teszt, text styles
-
     @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
